@@ -3,21 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PS4 Webkit Simple Site</title>
-    <link rel="stylesheet" href="css/main.css">
+    <title>PS4 Webkit • Menu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('bg-img.png'); /* image in root folder */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: Arial, sans-serif;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* content starts at top, allows scrolling if needed */
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.5); /* semi-transparent overlay for readability */
+            border-radius: 10px; /* slight rounding for the container, buttons stay rectangular */
+        }
+
+        .top-box {
+            border: 2px solid white;
+            padding: 20px;
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .content {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap; /* in case screen is narrow, buttons go below image */
+        }
+
+        .image-section {
+            flex: 1;
+            min-width: 300px; /* ensures image doesn't get too squished */
+        }
+
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            /* no border – as requested */
+        }
+
+        .buttons-section {
+            width: 280px;
+            flex-shrink: 0;
+        }
+
+        #button-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .ps4-button {
+            display: block;
+            width: 100%;
+            padding: 16px 12px;
+            background-color: #222; /* dark grey, close to black */
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-size: 1.2rem;
+            border: 1px solid #444;
+            cursor: pointer;
+            border-radius: 0; /* rectangular */
+            transition: none; /* no animations */
+        }
+
+        .ps4-button:hover {
+            background-color: #333; /* very subtle change, no animation */
+        }
+
+        .ps4-button:focus {
+            outline: none;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
         <div class="top-box">Ps4 Webkit box</div>
         <div class="content">
             <div class="image-section">
-                <img src="img/goth-girl.png" alt="Goth Girl Image">
+                <img src="img/goth-girl.png" alt="Goth girl">
             </div>
             <div class="buttons-section">
                 <div id="button-container"></div>
             </div>
         </div>
     </div>
-    <script src="js/script.js"></script>
+
+    <script>
+        // Add or remove items
+        const buttonsData = [
+            { label: "1.76 Playground", url: "scripts/1.76-playground/index.html" }
+        ];
+
+        // Render all buttons
+        const container = document.getElementById('button-container');
+        buttonsData.forEach(button => {
+            const link = document.createElement('a');
+            link.href = button.url;
+            link.className = 'ps4-button';
+            link.textContent = button.label;
+            container.appendChild(link);
+        });
+    </script>
 </body>
 </html>
