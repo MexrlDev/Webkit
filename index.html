@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PS4 Webkit • Landscape Menu</title>
+    <title>PS4 Webkit • 2‑Col Buttons</title>
     <style>
         /* reset & full-screen base */
         * {
@@ -28,7 +28,7 @@
             color: white;
             display: flex;
             justify-content: center;
-            align-items: flex-start;                      /* keep content at top */
+            align-items: flex-start;                     /* content stays at top */
             min-height: 100vh;
         }
 
@@ -57,59 +57,65 @@
         .content {
             display: flex;
             gap: 25px;
-            align-items: flex-start;                      /* image stays at top, no stretching */
-            flex-wrap: nowrap;                             /* force side-by-side on landscape */
+            align-items: flex-start;                     /* image stays at top */
+            flex-wrap: nowrap;                            /* force side-by-side on landscape */
         }
 
-        /* left side – image */
+        /* left side – image flush left */
         .image-section {
             flex: 1 1 auto;
-            min-width: 280px;                              /* keeps image from vanishing */
-            text-align: center;                             /* center if needed */
+            min-width: 280px;                             /* keeps image from vanishing */
+            text-align: left;                              /* image aligned to left */
         }
 
         .image-section img {
             max-width: 100%;
-            max-height: 65vh;                               /* shrink tall image to fit viewport */
+            max-height: 65vh;                              /* shrink tall image to fit viewport */
             width: auto;
             height: auto;
             display: inline-block;
             /* no border – as requested */
         }
 
-        /* right side – buttons panel */
+        /* right side – button grid */
         .buttons-section {
-            width: 300px;
+            width: 400px;                                  /* fixed width for two columns */
             flex-shrink: 0;
         }
 
         #button-container {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
 
         .ps4-button {
             display: block;
-            width: 100%;
-            padding: 16px 14px;
-            background-color: #222;                          /* dark grey, nearly black */
+            width: 100%;                                   /* fill grid cell */
+            padding: 16px 10px;
+            background-color: #222;                         /* dark grey, nearly black */
             color: white;
             text-decoration: none;
             text-align: center;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             border: 1px solid #444;
-            border-radius: 0;                                 /* rectangular */
-            transition: none;                                  /* no animations */
+            border-radius: 0;                               /* rectangular */
+            transition: none;                                /* no animations */
             cursor: pointer;
+            box-sizing: border-box;
         }
 
         .ps4-button:hover {
-            background-color: #333;                            /* tiny darken, no animation */
+            background-color: #333;                          /* tiny darken, no animation */
         }
 
         .ps4-button:focus {
             outline: none;
+        }
+
+        /* class for a button that spans both columns (used for odd last button) */
+        .full-width {
+            grid-column: span 2;
         }
 
         /* if screen becomes very narrow (portrait), switch to column */
@@ -127,12 +133,12 @@
     <div class="container">
         <div class="top-box">Ps4 Webkit box</div>
         <div class="content">
-            <!-- left: goth girl image (646x1200, now scaled down) -->
+            <!-- left: goth girl image (flush left) -->
             <div class="image-section">
                 <img src="img/goth-girl.png" alt="Goth girl">
             </div>
 
-            <!-- right: dynamic button list -->
+            <!-- right: dynamic 2‑column button grid -->
             <div class="buttons-section">
                 <div id="button-container"></div>
             </div>
@@ -140,12 +146,20 @@
     </div>
 
     <script>
+        // ---------- EASY BUTTON MANAGEMENT ----------
+        // Edit this array to add/remove buttons – no CSS changes needed.
         const buttonsData = [
             { label: "1.76 Playground", url: "scripts/1.76-playground/index.html" }
+            // To add more buttons, just add objects below, e.g.:
+            // { label: "Second Button", url: "scripts/two/index.html" },
+            // { label: "Third Button", url: "scripts/three/index.html" }
         ];
 
-        // Render all buttons
+        // Container for buttons
         const container = document.getElementById('button-container');
+        container.innerHTML = ''; // clear any previous content (if script re-runs)
+
+        // Create all buttons
         buttonsData.forEach(button => {
             const link = document.createElement('a');
             link.href = button.url;
@@ -153,6 +167,12 @@
             link.textContent = button.label;
             container.appendChild(link);
         });
+
+        // If odd number of buttons, make the last one span both columns (centered)
+        if (buttonsData.length % 2 !== 0 && buttonsData.length > 0) {
+            const lastButton = container.lastChild;
+            lastButton.classList.add('full-width');
+        }
     </script>
 </body>
 </html>
