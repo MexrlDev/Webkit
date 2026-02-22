@@ -18,7 +18,7 @@
         }
 
         body {
-            background-image: url('img/bg-img.png');      /* now inside img/ folder */
+            background-image: url('img/bg-img.png');      /* inside img/ folder */
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -56,7 +56,7 @@
         /* two-column landscape layout */
         .content {
             display: flex;
-            gap: 10px;                                    /* reduced gap – buttons sit closer to image */
+            gap: 5px;                                    /* minimal gap – buttons almost touch image */
             align-items: flex-start;                      /* image stays at top */
             flex-wrap: nowrap;                             /* force side-by-side on landscape */
         }
@@ -79,7 +79,7 @@
 
         /* right side – 3‑column button grid */
         .buttons-section {
-            width: 500px;                                  /* fixed width for three columns */
+            width: 540px;                                  /* adjusted for original button size */
             flex-shrink: 0;
         }
 
@@ -92,12 +92,12 @@
         .ps4-button {
             display: block;
             width: 100%;                                   /* fill grid cell */
-            padding: 16px 8px;
+            padding: 16px 12px;                            /* original button size */
             background-color: #222;                         /* dark grey, nearly black */
             color: white;
             text-decoration: none;
             text-align: center;
-            font-size: 1.1rem;
+            font-size: 1.2rem;                             /* original font size */
             border: 1px solid #444;
             border-radius: 0;                               /* rectangular */
             transition: none;                                /* no animations */
@@ -142,7 +142,7 @@
     </div>
 
     <script>
-        // add buttons lol
+        // add buttons here lol
         const buttonsData = [
             { label: "1.76 Playground", url: "scripts/1.76-playground/index.html" }
         ];
